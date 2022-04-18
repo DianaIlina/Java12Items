@@ -2,8 +2,7 @@ package ru.netology.domain;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ProductManagerTest {
     Product book1 = new Book(1, "Мы", 500, "Е. Замятин");
@@ -75,5 +74,13 @@ public class ProductManagerTest {
         boolean actual = manager.matches(book2, "1984");
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldUseNotFoundException() {
+        fillWithProducts(repo);
+        ProductRepository repo = new ProductRepository();
+
+        assertThrows(NotFoundException.class, () -> repo.removeById(888));
     }
 }
